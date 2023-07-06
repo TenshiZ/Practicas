@@ -57,17 +57,17 @@ plt.ylabel('Etiqueta real')
 
 plt.title('Matriz de confusión')
 
-plt.show()
+plt.savefig('confusion_matrix.png')
 
 
 f1 = f1_score(y_valid, predict_model)
 #predict_model = np.where(predict_model == 0, "Dead", np.where(predict_model == 1, "Alive"))
 predict_model = np.where(predict_model == 0, "Dead", "Alive")
 y_valid = np.where(y_valid == 0, "Dead", "Alive")
-print(predict_model)
-print(y_valid)
+#print(predict_model)
+#print(y_valid)
 
 print("Accuracy:", accuracy)
 print("Precision:", precision)
 print("F1_score:", f1)
-print(cm)
+
