@@ -26,6 +26,21 @@ my_cols = categorical_cols + numerical_cols
 train_X = train_X_full[my_cols].copy()
 val_X = val_X_full[my_cols].copy()
 
+OH_encoder = OneHotEncoder(handle_unknown='ignore', sparse=False)
+OH_cols_train = pd.DataFrame(OH_encoder.fit_transform(train_X[categorical_cols]))
+OH_cols_val = pd.DataFrame(OH_encoder.transform(val_X[categorical_cols]))
+
+OH_cols_train.index = train_X.index
+OH_cols_val.index = val_X.index
+
+num_X_train = train_X.drop(categorical_cols, axis = 1)
+num_X_val = val_X.drop(categorical_cols, axis = 1)
+
+OH_cols_train = pd.concat([num_X_train, OH_cols_val], axis=1)
+OH_cols_val = pd.concat([num_X_val, OH_cols_val], axis=1)
+
+OH_cols_train.columns = OH_cols_train.columns.astype(str)
+OH_cols_val.columns = OH_cols_val.columns.astype(str)
 
 numerical_transformer = SimpleImputer(strategy='constant')
 
@@ -33,10 +48,10 @@ categorical_transformer = Pipeline(steps=[('imputer', SimpleImputer(strategy='mo
 
 preprocessor = ColumnTransformer(transformers=[('num', numerical_transformer,numerical_cols), ('cat', categorical_transformer, categorical_cols)])
 
-my_model = XGBRegressor(n_estimator = 1000, learning_rate = 0.05 , n_jobs = 4)
+my_model = XGBRegressor(n_estimators = 1000, learning_rate = 0.05 , n_jobs = 4, early_stopping_rounds = 5)
 
 my_pipeline = Pipeline(steps=[('preprocessor', preprocessor),('model', my_model)])
-my_pipeline .fit(train_X, train_y)#, early_stopping_rounds = 5, eval_set=[(val_X, val_y)], verbose = False
+my_pipeline.fit(train_X, train_y, model__eval_set=[(val_X, val_y)], model__verbose = True) 
 
 predict_model = my_pipeline.predict(val_X)
 
