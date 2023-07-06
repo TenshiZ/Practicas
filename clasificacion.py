@@ -36,7 +36,7 @@ predict_model = my_model.predict(X_valid)
 accuracy = accuracy_score(y_valid, predict_model)
 precision = precision_score(y_valid, predict_model)
 f1 = f1_score(y_valid, predict_model)
-
+#predict_model = np.where(predict_model == 0, "Dead", np.where(predict_model == 1, "Alive"))
 predict_model = np.where(predict_model == 0, "Dead", "Alive")
 y_valid = np.where(y_valid == 0, "Dead", "Alive")
 print(predict_model)
