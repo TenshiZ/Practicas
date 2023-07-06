@@ -5,7 +5,11 @@ from xgboost import XGBClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import precision_score
 from sklearn.metrics import f1_score
+from sklearn.metrics import confusion_matrix
 from sklearn.preprocessing import LabelEncoder
+
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # Read the dataset from the CSV file
 model = pd.read_csv('Breast_Cancer.csv')
@@ -35,6 +39,27 @@ predict_model = my_model.predict(X_valid)
 # Calculate the accuracy
 accuracy = accuracy_score(y_valid, predict_model)
 precision = precision_score(y_valid, predict_model)
+
+cm = confusion_matrix(y_valid, predict_model)
+
+fig, ax = plt.subplots()
+
+sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", cbar=False)
+
+classes = np.unique(y_valid)
+tick_marks = np.arange(len(classes))
+plt.xticks(tick_marks, classes)
+plt.yticks(y_valid)
+
+plt.xlabel('Etiqueta predicha')
+plt.ylabel('Etiqueta real')
+
+
+plt.title('Matriz de confusión')
+
+plt.show()
+
+
 f1 = f1_score(y_valid, predict_model)
 #predict_model = np.where(predict_model == 0, "Dead", np.where(predict_model == 1, "Alive"))
 predict_model = np.where(predict_model == 0, "Dead", "Alive")
@@ -45,3 +70,4 @@ print(y_valid)
 print("Accuracy:", accuracy)
 print("Precision:", precision)
 print("F1_score:", f1)
+print(cm)
