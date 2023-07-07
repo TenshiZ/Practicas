@@ -4,6 +4,7 @@ from tensorflow import keras
 from tensorflow.keras import layers
 import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn.metrics import mean_absolute_error
 
 red_wine = pd.read_csv('red-wine.csv')
 
@@ -46,6 +47,10 @@ history = model.fit(
 )
 
 
+pred = model.predict(X_valid)
+
+me = mean_absolute_error(y_valid, pred)
+print(me)
 
 # convert the training history to a dataframe
 history_df = pd.DataFrame(history.history)
