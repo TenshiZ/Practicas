@@ -48,8 +48,8 @@ sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", cbar=False)
 
 classes = np.unique(y_valid)
 tick_marks = np.arange(len(classes))
-plt.xticks(tick_marks, classes)
-plt.yticks(y_valid)
+plt.xticks(tick_marks + 0.5, classes)
+plt.yticks(tick_marks + 0.5, classes)
 
 plt.xlabel('Etiqueta predicha')
 plt.ylabel('Etiqueta real')
@@ -58,6 +58,8 @@ plt.ylabel('Etiqueta real')
 plt.title('Matriz de confusión')
 
 plt.savefig('confusion_matrix.png')
+
+print(cm)
 
 
 f1 = f1_score(y_valid, predict_model)
