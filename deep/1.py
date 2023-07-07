@@ -1,7 +1,7 @@
 import pandas as pd
 from IPython.display import display
 from tensorflow import keras
-from tensorflow.keras import layers
+from tensorflow.keras import layers, callbacks
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.metrics import mean_absolute_error
@@ -34,6 +34,12 @@ model = keras.Sequential([
     layers.Dense(1),
 ])
 
+early_stopping = callbacks.EarlyStopping(
+    min_delta = 0.001,
+    patience = 20,
+    restore_best_weights = True,
+)
+
 model.compile(
     optimizer='adam',
     loss='mae',
@@ -43,7 +49,9 @@ history = model.fit(
     X_train, y_train,
     validation_data=(X_valid, y_valid),
     batch_size=256,
-    epochs=10,
+    epochs=100,
+    callbacks=[early_stopping],
+    
 )
 
 
@@ -55,5 +63,6 @@ print(me)
 # convert the training history to a dataframe
 history_df = pd.DataFrame(history.history)
 # use Pandas native plot method
-history_df['loss'].plot()
+history_df.loc[:,['loss', 'val_loss']].plot()
+print("Minimum validation loss: {}".format(history_df['val_loss'].min()))
 plt.savefig('loss history')
