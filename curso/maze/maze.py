@@ -76,7 +76,6 @@ class Maze():
     def print(self):
         solution = self.solution[1] if self.solution is not None else None
         print()
-        print(solution)
         for i,row in enumerate(self.walls):
             for j,col in enumerate(row):
                 if col :
@@ -139,7 +138,6 @@ class Maze():
                 actions.reverse()
                 cells.reverse()
                 self.solution = (actions, cells)
-                print("1")
                 return
             
             self.explored.add(node.state)
