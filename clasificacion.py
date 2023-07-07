@@ -26,7 +26,7 @@ le = LabelEncoder()
 y = le.fit_transform(y)
 
 # Split the data into training and validation sets
-X_train, X_valid, y_train, y_valid = train_test_split(X, y, test_size=0.2, random_state=0)
+X_train, X_valid, y_train, y_valid = train_test_split(X, y, test_size=0.2, random_state=122)
 
 # Train the XGBoost classifier
 my_model = XGBClassifier(n_estimators=1000, learning_rate=0.05, n_jobs=4, early_stopping_rounds=5)
