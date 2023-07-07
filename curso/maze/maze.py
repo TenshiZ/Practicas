@@ -115,7 +115,7 @@ class Maze():
         self.num_explored = 0
 
         start = Node(state = self.start, parent=None,action=None)
-        frontier = StackFrontier()
+        frontier = QueueFrontier()
         frontier.add(start)
 
         self.explored = set()
@@ -181,7 +181,7 @@ class Maze():
                     draw.rectangle((x1, y1, x2, y2), fill="blue")
                 elif show_explored and (i, j) in self.explored:
                     # Draw a light gray rectangle for explored cells
-                    draw.rectangle((x1, y1, x2, y2), fill="lightgray")
+                    draw.rectangle((x1, y1, x2, y2), fill="yellow")
 
         # Save the image to a file
         img.save(filename)
