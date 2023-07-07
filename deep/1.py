@@ -28,9 +28,16 @@ y_valid = df_valid['quality']
 
 
 model = keras.Sequential([
-    layers.Dense(512, activation='relu', input_shape=[11]),
-    layers.Dense(512, activation='relu'),
-    layers.Dense(512, activation='relu'),
+    layers.BatchNormalization(input_shape=[11]),
+    layers.Dense(1024, activation='relu' ),
+    layers.Dropout(0.3),
+    layers.BatchNormalization(),
+    layers.Dense(1024, activation='relu'),
+    layers.Dropout(0.3),
+    layers.BatchNormalization(),
+    layers.Dense(1024, activation='relu'),
+    layers.Dropout(0.3),
+    layers.BatchNormalization(),
     layers.Dense(1),
 ])
 
@@ -50,7 +57,9 @@ history = model.fit(
     validation_data=(X_valid, y_valid),
     batch_size=256,
     epochs=100,
-    callbacks=[early_stopping],
+    verbose=1,
+    #callbacks=[early_stopping],
+    
     
 )
 
@@ -59,6 +68,7 @@ pred = model.predict(X_valid)
 
 me = mean_absolute_error(y_valid, pred)
 print(me)
+
 
 # convert the training history to a dataframe
 history_df = pd.DataFrame(history.history)
