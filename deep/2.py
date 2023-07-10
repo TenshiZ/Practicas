@@ -28,6 +28,7 @@ y_train = df_train['Class']
 y_valid = df_valid['Class']
 
 model = keras.Sequential([
+    #layers.BatchNormalization(input_shape=[33]),
     layers.Dense(256, activation='relu', input_shape=[33]),
     layers.Dense(256, activation='relu'),    
     layers.Dense(1, activation='sigmoid'),
@@ -48,7 +49,7 @@ early_stopping = callbacks.EarlyStopping(
 history = model.fit(
     X_train, y_train,
     validation_data=(X_valid, y_valid),
-    batch_size=512,
+    batch_size=28,
     epochs=1000,
     callbacks=[early_stopping],
    # verbose=0, # hide the output because we have so many epochs
