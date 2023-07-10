@@ -28,8 +28,8 @@ y_train = df_train['Class']
 y_valid = df_valid['Class']
 
 model = keras.Sequential([
-    layers.Dense(4, activation='relu', input_shape=[33]),
-    layers.Dense(4, activation='relu'),    
+    layers.Dense(20, activation='relu', input_shape=[33]),
+    layers.Dense(20, activation='relu'),    
     layers.Dense(1, activation='sigmoid'),
 ])
 
