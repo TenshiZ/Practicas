@@ -28,8 +28,8 @@ y_train = df_train['Class']
 y_valid = df_valid['Class']
 
 model = keras.Sequential([
-    layers.Dense(20, activation='relu', input_shape=[33]),
-    layers.Dense(20, activation='relu'),    
+    layers.Dense(256, activation='relu', input_shape=[33]),
+    layers.Dense(256, activation='relu'),    
     layers.Dense(1, activation='sigmoid'),
 ])
 
@@ -51,7 +51,7 @@ history = model.fit(
     batch_size=512,
     epochs=1000,
     callbacks=[early_stopping],
-    verbose=0, # hide the output because we have so many epochs
+   # verbose=0, # hide the output because we have so many epochs
 )
 
 history_df = pd.DataFrame(history.history)
