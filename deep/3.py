@@ -6,6 +6,7 @@ import numpy as np
 import os
 import matplotlib.pyplot as plt
 import warnings
+import joblib
 
 def set_seed(seed=31415):
     np.random.seed(seed)
@@ -49,7 +50,7 @@ model.compile(optimizer='adam',
               metrics=['accuracy'])
 
 model.fit(train_dataset, validation_data=val_dataset, epochs=2  )
-
+joblib.dump(model, 'modelo_entrenado.pkl') # Guardo el modelo.
 # Obtener un lote de ejemplos del conjunto de datos de prueba
 test_dataset = val_dataset.take(1)
 
@@ -68,4 +69,4 @@ for images, labels in test_dataset:
         plt.axis('off')
         plt.title(f'True: {true_label}, Predicted: {predicted_label}')
         plt.show()
-        plt.savefig('imagen' + i)
+        plt.savefig('imagen' + str(i))
