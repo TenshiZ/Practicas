@@ -1,0 +1,5 @@
+"pretrain","mods","ploch","batch","accuracy","val_loss","nombre"
+"MobileNetV2","early_stopping default",100,20,1.0000,0.0024,"species_recognition_model_mobilenet_v2_100.h5"
+"MobileNetV2",""lr_callback default",100,32,0.32,2.6895,"species_recognition_model"
+"MobileNetV2","lr_callback default",20,128,0.1294,3.1259,"species_recognition_model_mobilenet_v2_32_20_lr.h5"
+"MobileNetV2","early_stopping default",20,128,0.5603,1.5414,"species_recognition_model_mobilenet_v2_32_20_ea.h5"
