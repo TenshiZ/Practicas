@@ -1,2 +1,3 @@
 Model,Accuracy,Avg Precision,Avg Recall,Avg f1 score,Nombre,Mutaciones
 mobilenet_v2,0.8482688665390015,0.8704753371141871,0.8542009240243175,0.8581750443919698,species_recognition_model_mobilenet_v2.h5_2,normal
+mobilenet_v2,0.8553971648216248,0.8721569584938613,0.8789328013926818,0.8723736753551536,species_recognition_model_mobilenet_v2_2,normal
