@@ -1,8 +1,2 @@
 Model,Accuracy,Avg Precision,Avg Recall,Avg f1 score,Nombre,Mutaciones
-MobileNetV2,0.6591836810112,0.7619588563160147,0.6773846319903915,0.6835432929813992,species_recognition_model_mobilenet_v2_1.h5,
-Model,Accuracy,Avg Precision,Avg Recall,Avg f1 score,Nombre,Mutaciones
-MobileNetV2,0.7250509262084961,0.8040919093572473,0.7217497679282151,0.7464710473049704,species_recognition_model_mobilenet_v2_1.h5,
-Model,Accuracy,Avg Precision,Avg Recall,Avg f1 score,Nombre,Mutaciones
-MobileNetV2,0.7219959497451782,0.7809408748647232,0.7568253048043644,0.7525119292811173,species_recognition_model_mobilenet_v2_1.h5,
-Model,Accuracy,Avg Precision,Avg Recall,Avg f1 score,Nombre,Mutaciones
-MobileNetV2,0.8543788194656372,0.8746720744997147,0.872799852271147,0.8699995310248295,species_recognition_model_mobilenet_v2_1.h5,
+
