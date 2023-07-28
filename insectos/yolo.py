@@ -55,12 +55,16 @@ def detect_objects(image_path, class_name):
     return class_labels, bboxes
 
 
-def save_cropped_images(image_path, bboxes):
+def save_cropped_images(image_path, bboxes, class_name):
     image = cv2.imread(image_path)
 
     if image is None:
         print(f"Error: No se pudo cargar la imagen '{image_path}'")
         return
+
+    # Obtener la ruta de la carpeta específica de la especie dentro de "cropped_images"
+    class_cropped_images_folder = os.path.join(cropped_images_folder, class_name)
+    os.makedirs(class_cropped_images_folder, exist_ok=True)
 
     for i, bbox in enumerate(bboxes):
         x_min, y_min, x_max, y_max = bbox
@@ -76,19 +80,20 @@ def save_cropped_images(image_path, bboxes):
         if cropped_img.size == 0:
             print(f"Advertencia: Cuadro delimitador inválido para la detección {i+1} en la imagen '{image_path}'")
         else:
-            cropped_img_path = os.path.join(cropped_images_folder, f"{os.path.splitext(os.path.basename(image_path))[0]}_{i}.jpg")
+            # Construir el nombre del archivo de imagen recortada
+            image_basename = os.path.splitext(os.path.basename(image_path))[0]
+            cropped_img_filename = f"{image_basename}_{i}.jpg"
+            
+            # Guardar la imagen recortada en la carpeta específica de la especie
+            cropped_img_path = os.path.join(class_cropped_images_folder, cropped_img_filename)
             cv2.imwrite(cropped_img_path, cropped_img)
 
 
 # Recorrer todas las imágenes en cada carpeta de especies
-for class_name in os.listdir(dataset_folder):
-    class_folder = os.path.join(dataset_folder, class_name)
-    class_destination_folder = os.path.join(destination_folder, class_name)
-
-    os.makedirs(class_destination_folder, exist_ok=True)
-
-    for image_name in os.listdir(class_folder):
-        image_path = os.path.join(class_folder, image_name)
+for root, _, files in os.walk(dataset_folder):
+    for image_name in files:
+        class_name = os.path.basename(root)
+        image_path = os.path.join(root, image_name)
         class_labels, bboxes = detect_objects(image_path, class_name)
 
         # Obtener las dimensiones de la imagen
@@ -103,4 +108,4 @@ for class_name in os.listdir(dataset_folder):
         # Aquí debes implementar la función save_labels_and_bboxes si es necesaria
 
         # Guardar imágenes recortadas en la carpeta "cropped_images"
-        save_cropped_images(image_path, bboxes)
+        save_cropped_images(image_path, bboxes, class_name)
