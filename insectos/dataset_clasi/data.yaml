@@ -1,0 +1,5 @@
+names:
+- insect
+nc: 1
+train: /home/usuario/insectos/Practicas/insectos/dataset_clasi/train/images
+val: /home/usuario/insectos/Practicas/insectos/dataset_clasi/valid/images

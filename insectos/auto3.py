@@ -1,11 +1,8 @@
 print("empezado++")
-import tensorflow as tf
-print("NP")
 from autodistill import detection
 print("NP1")
 from autodistill_grounded_sam import GroundedSAM
 print("NP2")
-from IPython.display import Image
 import cv2
 import supervision as sv
 
@@ -42,7 +39,7 @@ DATASET_DIR_PATH = "dataset_clasi" #donde guardar
 IMAGE_DIR_PATH = "datos_separados/images"#de donde coger las imagenes
 dataset = base_model.label( #predice la carpeta entera
     input_folder=IMAGE_DIR_PATH,  #path de carpeta de imagenes
-    extension=".png", 
+    extension=".jpg", 
     output_folder=DATASET_DIR_PATH)#donde guardar
 
 print("carpeta hecha")
