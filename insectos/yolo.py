@@ -1,15 +1,8 @@
 from autodistill_yolov8 import YOLOv8
-
-
 import os
 import cv2
 import numpy as np
-import tensorflow as tf
-import tensorflow_hub as hub
 import shutil
-
-BATCH_SIZE = 32
-IMG_SIZE = (416, 416)
 
 # Rutas de las carpetas
 dataset_folder = "carpetas"
@@ -18,14 +11,17 @@ destination_folder = "datos_separados"
 images_folder = os.path.join(destination_folder, "images")
 labels_folder = os.path.join(destination_folder, "labels")
 bounding_boxes_folder = os.path.join(destination_folder, "bounding_boxes")
+cropped_images_folder = os.path.join(destination_folder, "cropped_images")
 
 os.makedirs(images_folder, exist_ok=True)
 os.makedirs(labels_folder, exist_ok=True)
 os.makedirs(bounding_boxes_folder, exist_ok=True)
+os.makedirs(cropped_images_folder, exist_ok=True)
 
 # Configuración de rutas y parámetros del modelo YOLOv3
 target_model = YOLOv8("yolov8n.pt")
-target_model.train(DATA_YAML_PATH, epochs=50)
+# Aquí debes definir el valor de DATA_YAML_PATH que no está definido en el código proporcionado
+# target_model.train(DATA_YAML_PATH, epochs=50)
 
 
 # Función para realizar la detección de objetos en una imagen
@@ -33,8 +29,9 @@ def detect_objects(image_path, class_name):
     image = cv2.imread(image_path)
     height, width = image.shape[:2]
 
+    # Obtener las detecciones del modelo YOLOv8
+    detections = target_model.predict(image)
 
-    # Obtener las etiquetas y cuadros delimitadores
     class_labels = []
     bboxes = []
     for detection in detections:
@@ -76,35 +73,5 @@ def save_cropped_images(image_path, bboxes):
         if cropped_img.size == 0:
             print(f"Advertencia: Cuadro delimitador inválido para la detección {i+1} en la imagen '{image_path}'")
         else:
-            cropped_img_path = os.path.join(destination_folder, "cropped_images", f"{os.path.splitext(os.path.basename(image_path))[0]}_{i}.jpg")
-            cv2.imwrite(cropped_img_path, cropped_img)
-
-
-
-# Recorrer todas las imágenes en cada carpeta de especies
-# Resto del código...
-
-# Recorrer todas las imágenes en cada carpeta de especies
-# Recorrer todas las imágenes en cada carpeta de especies
-for class_name in os.listdir(dataset_folder):
-    class_folder = os.path.join(dataset_folder, class_name)
-    class_destination_folder = os.path.join(destination_folder, class_name)
-   
-
-    for image_name in os.listdir(class_folder):
-        image_path = os.path.join(class_folder, image_name)
-        class_labels, bboxes = detect_objects(image_path, class_name)
-
-        # Obtener las dimensiones de la imagen
-        image = cv2.imread(image_path)
-        height, width = image.shape[:2]
-
-        # Guardar imágenes en la carpeta "images"
-        destination_image_path = os.path.join(images_folder, image_name)
-        shutil.copy(image_path, destination_image_path)
-
-        # Guardar etiquetas y cuadros delimitadores en formato YOLO
-        #save_labels_and_bboxes(os.path.splitext(image_name)[0], class_labels, bboxes, width, height)
-
-        # Guardar imágenes recortadas en la carpeta "cropped_images"
-        save_cropped_images(image_name, bboxes)
+            cropped_img_path = os.path.join(cropped_images_folder, f"{os.path.splitext(os.path.basename(image_path))[0]}_{i}.jpg")
+           
