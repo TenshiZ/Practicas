@@ -21,8 +21,8 @@ os.makedirs(cropped_images_folder, exist_ok=True)
 # Configuración de rutas y parámetros del modelo YOLOv3
 target_model = YOLOv8("yolov8n.pt")
 # Aquí debes definir el valor de DATA_YAML_PATH que no está definido en el código proporcionado
-# target_model.train(DATA_YAML_PATH, epochs=50)
-
+#target_model.train(dataset_clasi/data.yaml, epochs=50)
+#target_model.save("yolo1.h5")
 
 # Función para realizar la detección de objetos en una imagen
 def detect_objects(image_path, class_name):
