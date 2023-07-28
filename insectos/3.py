@@ -30,7 +30,7 @@ IMG_SIZE = (224, 224)
 
 # Create the combined dataset from the directory
 dataset = tf.keras.utils.image_dataset_from_directory(
-    'datos_separados/cropped_images',
+    'carpetas',
     shuffle=True,
     batch_size=BATCH_SIZE,
     image_size=IMG_SIZE
@@ -40,21 +40,21 @@ dataset = tf.keras.utils.image_dataset_from_directory(
 class_names = dataset.class_names #nombres de las clases
 
 train_dataset = tf.keras.utils.image_dataset_from_directory(
-    'directoriosS/train',
+    'directorios/train',
     shuffle=True,
     batch_size=BATCH_SIZE,
     image_size=IMG_SIZE
 )
 
 val_dataset = tf.keras.utils.image_dataset_from_directory(
-    'directoriosS/val',
+    'directorios/val',
     shuffle=True,
     batch_size=BATCH_SIZE,
     image_size=IMG_SIZE
 )
 
 test_dataset = tf.keras.utils.image_dataset_from_directory(
-    'directoriosS/test',
+    'directorios/test',
     shuffle=True,
     batch_size=BATCH_SIZE,
     image_size=IMG_SIZE
@@ -77,11 +77,11 @@ nombre_guardado_congelado = 'species_recognition_model_xception_le_1'
 initial_epochs = 1000
 
 early_stopping = tf.keras.callbacks.EarlyStopping(
-     filepath = nombre_guardado_congelado+ '_early' + '.h5',
+    
     patience = 100,
     min_delta = 0.001,
     restore_best_weights = True,
-    save_best_only = True,
+    
 )
 
 checkpoint_callback = ModelCheckpoint(
