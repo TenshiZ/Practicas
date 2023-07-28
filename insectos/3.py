@@ -73,19 +73,21 @@ data_augmentation = tf.keras.Sequential([
   tf.keras.layers.experimental.preprocessing.RandomZoom(0.2),
 ])
 
-
+nombre_guardado_congelado = 'species_recognition_model_xception_le_1'
 initial_epochs = 1000
 
 early_stopping = tf.keras.callbacks.EarlyStopping(
+     filepath = nombre_guardado_congelado+ '_early' + '.h5',
     patience = 100,
     min_delta = 0.001,
     restore_best_weights = True,
+    save_best_only = True,
 )
-nombre_guardado_congelado = 'species_recognition_model_xception_le_1'
+
 checkpoint_callback = ModelCheckpoint(
    filepath = nombre_guardado_congelado + '.h5',
    save_weights_only = False,
-   sabe_best_only = True,
+   save_best_only = True,
    save_freq = 'epoch'
 )
 

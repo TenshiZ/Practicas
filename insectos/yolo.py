@@ -3,6 +3,7 @@ import os
 import cv2
 import numpy as np
 import shutil
+import torch
 
 # Rutas de las carpetas
 dataset_folder = "carpetas"
@@ -21,8 +22,8 @@ os.makedirs(cropped_images_folder, exist_ok=True)
 # Configuración de rutas y parámetros del modelo YOLOv3
 target_model = YOLOv8("yolov8n.pt")
 # Aquí debes definir el valor de DATA_YAML_PATH que no está definido en el código proporcionado
-#target_model.train("dataset_clasi/data.yaml", epochs=200)
-
+target_model.train("dataset_clasi/data.yaml", epochs=200,)
+torch.save(target_model, 'yolov3_modelo_completo.pth')
 
 # Función para realizar la detección de objetos en una imagen
 def detect_objects(image_path, class_name):
